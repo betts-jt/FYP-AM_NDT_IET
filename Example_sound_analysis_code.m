@@ -1,10 +1,7 @@
-% CODE FROM
-% "https://uk.mathworks.com/matlabcentral/fileexchange/38837-sound-analysis-with-matlab-implementation"
-
 
 clear, clc, close all
 % get a section of the sound file
-[x, fs] = audioread('track.wav');   % load an audio file
+[x, fs] = audioread('Track.wav');   % load an audio file
 x = x(:, 1);                        % get the first channel
 N = length(x);                      % signal length
 t = (0:N-1)/fs;                     % time vector
@@ -86,4 +83,3 @@ disp(['Crest factor Q = ' num2str(Q) ' dB'])
 ind = find(Rx>0.05, 1, 'last');
 RT = (ind-N)/fs;
 disp(['Autocorrelation time = ' num2str(RT) ' s'])
-commandwindow
