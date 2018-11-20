@@ -9,3 +9,4 @@
 *.pdf -crlf -diff -merge
 *.jpg -crlf -diff -merge
 *.png -crlf -diff -merge
+*.wav -crlf -diff -merge
