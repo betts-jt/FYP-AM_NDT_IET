@@ -1,7 +1,7 @@
 
 clear, clc, close all
 % get a section of the sound file
-[x, fs] = audioread('Track.wav');   % load an audio file
+[x, fs] = audioread('Track1.wav');   % load an audio file
 x = x(:, 1);                        % get the first channel
 N = length(x);                      % signal length
 t = (0:N-1)/fs;                     % time vector
