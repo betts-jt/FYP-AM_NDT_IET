@@ -23,8 +23,9 @@ xlim([0 max(f2)]) % Set X limit for graph
 
 %  Plot largest peaks on first part
 minPeakProminence = 25; % The minimum peak provinence for finding peaks
-NumPeaks = 100;
-RequiredPeaks = 5; % Set required nuber of peaks
+NumPeaks = 100; % Reset the value of number of peaks
+
+RequiredPeaks = 8; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
@@ -34,7 +35,7 @@ end
 
 %  Plot largest peaks on test good part
 minPeakProminence = 25; % The minimum peak provinence for finding peaks
-NumPeaks = 100;
+NumPeaks = 100; % Reset the value of number of peaks
 
 while NumPeaks > RequiredPeaks
     [c, d] = findpeaks(X2, 'MinPeakProminence', minPeakProminence);
@@ -65,6 +66,17 @@ Legend{2} = 'Second Part';
 
 freqPeaks1 = f1(b); % Frequency of peaks in first part
 freqPeaks2 = f2(d); % Frequency of peaks in second part
+
+% Check if the required number of peaks has been found
+% Check part 1
+if length(freqPeaks1) < NumPeaks
+    error(['Not enough peaks with the correct promminence can be found in part 1. Make the value for RequiredPeaks lower than ' num2str(length(freqPeaks1)) ' and try again'])
+end
+
+% Check part 2
+if length(freqPeaks2) < NumPeaks
+    error(['Not enough peaks with the correct promminence can be found in part 1 \n Make the value for RequiredPeaks lower than ' num2str(length(freqPeaks1)) ' and try again'])
+end
 
 % Run Function to find common peak frequencys
 [FreqCommonPeaks] = CommonPeakFinder(freqPeaks1, freqPeaks2);
