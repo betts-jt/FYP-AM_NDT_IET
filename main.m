@@ -1,10 +1,11 @@
 clear
 clc
 close all
+addpath('Audio_Clips')
 
 % Setting Audio Tracks
-known_good_audio = 'Track1.wav';
-test_part_audio = 'Track3.wav';
+known_good_audio = 'mug1.wav';
+test_part_audio = 'mug2.wav';
 
 % Run through time to frequcency domain function
 [X1, f1] = Time_Freq_domain(known_good_audio);
@@ -20,10 +21,10 @@ semilogx(f2, X2, 'b') % Plot test part sprectrum
 % Set X limit for graph
 xlim([0 max(f2)]) % Set X limit for graph
 
-%  Plot largest peaks on known good part
+%  Plot largest peaks on first part
 minPeakProminence = 25; % The minimum peak provinence for finding peaks
 NumPeaks = 100;
-RequiredPeaks = 10; % Set required nuber of peaks
+RequiredPeaks = 5; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
@@ -35,7 +36,7 @@ end
 minPeakProminence = 25; % The minimum peak provinence for finding peaks
 NumPeaks = 100;
 
-while NumPeaks > 10
+while NumPeaks > RequiredPeaks
     [c, d] = findpeaks(X2, 'MinPeakProminence', minPeakProminence);
     minPeakProminence = minPeakProminence+1;
     NumPeaks = length(c);
@@ -49,7 +50,7 @@ plot(f2(d), c, 'xk'); % Peaks of test part
 title('Amplitude spectrum of the signal')
 xlabel('Frequency, Hz')
 ylabel('Magnitude, dB')
-legend('Known Good Part','Test Part','Known Good Part Peaks','Test Part Peaks')
+legend('First Part','Second Part','First Part Peaks','Second Part Peaks')
 
 %Plot Peaks on there own graph
 figure(2)
@@ -58,14 +59,21 @@ plot(f1(b), a, 'or'); % Peaks of know good part
 plot(f2(d), c, 'xb'); % Peaks of test part
 xlabel('Frequency, Hz')
 ylabel('Magnitude, dB')
-legend('Known Good Part','Test Part Audio')
+Legend{1} = 'First Part';
+Legend{2} = 'Second Part';
 
 
-% For each peak in f1 check if any of the peaks in f2 are the same +/- the
-allowable deviation in the peak value.
-PeakRange = 5; % Set the allowable deviation in peak
-for i = 1:NumPeaks
-    for k = 1:NumPeaks
-        
-    end
+freqPeaks1 = f1(b); % Frequency of peaks in first part
+freqPeaks2 = f2(d); % Frequency of peaks in second part
+
+% Run Function to find common peak frequencys
+[FreqCommonPeaks] = CommonPeakFinder(freqPeaks1, freqPeaks2);
+
+% Plot lines on frequency graph showing the common peaks
+figure(2)
+hold on
+for i=1:length(FreqCommonPeaks)
+   xline(FreqCommonPeaks(i));
+   Legend{i+2} = ['Common Frequency ' num2str(FreqCommonPeaks(i)) ' Hz'];
 end
+legend(Legend);
