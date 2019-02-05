@@ -11,6 +11,7 @@ fileName = input('Please insert a file name to save the common frequencies as. \
 % save
 
 if isempty(fileName)
+    disp('Results have not been saved.')
     return
 end
 
