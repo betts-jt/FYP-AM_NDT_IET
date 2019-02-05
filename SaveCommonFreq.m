@@ -1,4 +1,4 @@
-function [] = SaveFreqToTxt(FreqCommonPeaks)
+function [] = SaveCommonFreq(FreqCommonPeaks)
 % This function saves the common frequecies to file to allow then to be
 % read later.
 %   Where
@@ -15,7 +15,7 @@ if isempty(fileName)
 end
 
 % Save the frequencies as a Mablad data file with the input name
-save(fileName, FreqCommonPeaks)
+save('test1.mat', num2str(FreqCommonPeaks))
 
 end
 
