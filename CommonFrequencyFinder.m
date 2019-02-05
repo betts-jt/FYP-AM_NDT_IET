@@ -4,8 +4,8 @@ close all
 addpath 'Audio_Clips' 'Data'
 
 % Setting Audio Tracks
-Part1 = 'mug1.wav';
-Part2 = 'mug2.wav';
+Part1 = 'Track1.wav';
+Part2 = 'Track2.wav';
 
 % Run through time to frequcency domain function
 [X1, f1] = Time_Freq_domain(Part1);
