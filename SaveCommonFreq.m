@@ -15,7 +15,7 @@ if isempty(fileName)
 end
 
 % Save the frequencies as a Mablad data file with the input name
-save('test1.mat', num2str(FreqCommonPeaks))
+save(fileName, 'FreqCommonPeaks')
 
 end
 
