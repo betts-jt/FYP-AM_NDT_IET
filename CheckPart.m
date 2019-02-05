@@ -2,8 +2,8 @@ clear
 clc
 close all
 
-test_part_audio = 'mug2.wav';
-PartExpectedFrequency = 'test2';
+test_part_audio = 'Track3.wav';
+PartExpectedFrequency = 'TestTrackCorrect';
 
 
 [X1, f1] = Time_Freq_domain(test_part_audio);
@@ -20,7 +20,6 @@ Legend{1} = 'Test part';
 % Plot Expected frequency lines
 for i=1:length(FreqCommonPeaks)
     xline(FreqCommonPeaks(i));
-    Legend{i+1} = ['Expected Peak Frequency ' num2str(FreqCommonPeaks(i)) ' Hz'];
 end
 legend(Legend);
 
