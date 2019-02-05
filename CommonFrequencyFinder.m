@@ -1,7 +1,7 @@
 clear
 clc
 close all
-addpath('Audio_Clips')
+addpath 'Audio_Clips' 'Data'
 
 % Setting Audio Tracks
 known_good_audio = 'mug1.wav';
@@ -85,7 +85,16 @@ end
 figure(2)
 hold on
 for i=1:length(FreqCommonPeaks)
-   xline(FreqCommonPeaks(i));
-   Legend{i+2} = ['Common Frequency ' num2str(FreqCommonPeaks(i)) ' Hz'];
+    xline(FreqCommonPeaks(i));
+    Legend{i+2} = ['Common Frequency ' num2str(FreqCommonPeaks(i)) ' Hz'];
 end
 legend(Legend);
+
+% chekc if user wants to save results
+answer = questdlg('Save the common frequencies','Save Frequencies','Yes', 'No', 'No');
+if answer = Yes
+    % Save common frequencies
+    SaveCommonFreq(FreqCommonPeaks)
+else
+end
+
