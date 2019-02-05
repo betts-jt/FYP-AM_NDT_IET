@@ -92,9 +92,12 @@ legend(Legend);
 
 % chekc if user wants to save results
 answer = questdlg('Save the common frequencies','Save Frequencies','Yes', 'No', 'No');
-if answer = Yes
+switch answer
+    case 'Yes'
     % Save common frequencies
     SaveCommonFreq(FreqCommonPeaks)
-else
+    disp('Results have been saved.')
+    case 'No'
+        disp('Results have not been saved.')
 end
 
