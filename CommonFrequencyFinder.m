@@ -4,12 +4,12 @@ close all
 addpath 'Audio_Clips' 'Data'
 
 % Setting Audio Tracks
-known_good_audio = 'mug1.wav';
-test_part_audio = 'mug2.wav';
+Part1 = 'mug1.wav';
+Part2 = 'mug2.wav';
 
 % Run through time to frequcency domain function
-[X1, f1] = Time_Freq_domain(known_good_audio);
-[X2, f2] = Time_Freq_domain(test_part_audio);
+[X1, f1] = Time_Freq_domain(Part1);
+[X2, f2] = Time_Freq_domain(Part2);
 
 % plot the signal spectrum
 figure(1)
