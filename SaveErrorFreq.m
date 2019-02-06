@@ -1,4 +1,4 @@
-function [] = SaveCommonFreq(FrequencyError)
+function [] = SaveErrorFreq(FrequencyError)
 % This function saves the error frequecies to file to allow then to be
 % read later.
 %   Where
