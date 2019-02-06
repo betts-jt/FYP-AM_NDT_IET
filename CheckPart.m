@@ -4,23 +4,31 @@ close all
 
 test_part_audio = 'Track3.wav';
 PartExpectedFrequency = 'TestTrackCorrect';
-
+PartErrorFrequency = 'test1';
 
 [X1, f1] = Time_Freq_domain(test_part_audio);
 
-load(PartExpectedFrequency)
+load(['/Users/JosephBetts/Documents/University/Year 4/FYP/FYP-AM_NDT_IET/Data/CommonFreq/' PartExpectedFrequency])
+load(['/Users/JosephBetts/Documents/University/Year 4/FYP/FYP-AM_NDT_IET/Data/ErrorFreq/' PartErrorFrequency])
 
 % plot the signal spectrum
 figure(1)
 hold on
 grid on
-semilogx(f1, X1, 'r') % Plot known good part sprectrum
+semilogx(f1, X1, 'b') % Plot known good part sprectrum
 Legend{1} = 'Test part';
 
 % Plot Expected frequency lines
 for i=1:length(FreqCommonPeaks)
     xline(FreqCommonPeaks(i));
 end
+Legend{2} = 'Expected Frequencies';
+
+% Plot the error frequency lines
+for i=1:length(FrequencyError)
+    xline(FrequencyError(i), 'r');
+end
+Legend{3} = 'Error Frequencies';
 legend(Legend);
 
 %  Find peak Frequencies in test part
@@ -45,6 +53,9 @@ for i = 1:length(FreqCommonPeaks)
     end
     PeakFound(i) = any(abs(Common(:,i))<tol);
 end
+
+% Check if there is a peak at an error value
+
 
 if any(PeakFound ==0)
     disp('Failed')

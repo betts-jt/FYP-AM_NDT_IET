@@ -1,7 +1,7 @@
 clear
 clc
 close all
-addpath 'Audio_Clips' 'Data'
+addpath 'Audio_Clips' 'Data' 'Data/ErrorFreq' 'Data/CommonFreq'
 
 % Setting Audio Tracks
 Part1 = 'Track1.wav';
@@ -90,14 +90,39 @@ for i=1:length(FreqCommonPeaks)
 end
 legend(Legend);
 
-% chekc if user wants to save results
+% check if user wants to save results
 answer = questdlg('Save the common frequencies','Save Frequencies','Yes', 'No', 'No');
 switch answer
     case 'Yes'
-    % Save common frequencies
-    SaveCommonFreq(FreqCommonPeaks)
-    disp('Results have been saved.')
+        % Save common frequencies
+        SaveCommonFreq(FreqCommonPeaks)
+        disp('Results have been saved.')
     case 'No'
         disp('Results have not been saved.')
 end
 
+% chekc if user wants to enter error peaks
+answer = questdlg('Do you wish to enter error frequencuies','Enter Error Frequencies','Yes', 'No', 'No');
+figure(2)
+hold on
+switch answer
+    case 'Yes'
+        MoreError = 1;
+        g=1;
+        while MoreError == 1
+            % prompt user to enter name to same file as
+            text = input('Please insert an error frequency \n', 's');
+            FrequencyError(g) = str2num(text);
+            xline(FrequencyError(g), 'r'); % Plot Error frequency line
+            answer1 = questdlg('Do you wish to enter more error frequencies ','More Error Frequencies?','Yes', 'No', 'No');
+            switch answer1
+                case 'Yes'
+                    g=g+1;
+                case 'No'
+                    SaveErrorFreq(FrequencyError) % Run the function to save error frequencies
+                    MoreError = 0; % Stop the loop to enter error frequencies
+            end
+        end
+    case 'No'
+        disp('No error frequencies have been entered')
+end
