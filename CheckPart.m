@@ -8,8 +8,8 @@ PartErrorFrequency = 'test1';
 
 [X1, f1] = Time_Freq_domain(test_part_audio);
 
-load(['/Users/JosephBetts/Documents/University/Year 4/FYP/FYP-AM_NDT_IET/Data/CommonFreq/' PartExpectedFrequency])
-load(['/Users/JosephBetts/Documents/University/Year 4/FYP/FYP-AM_NDT_IET/Data/ErrorFreq/' PartErrorFrequency])
+load([PartExpectedFrequency])
+load([PartErrorFrequency])
 
 % plot the signal spectrum
 figure(1)
