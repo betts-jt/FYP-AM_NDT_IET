@@ -1,0 +1,7 @@
+*.asv
+*.m~
+*.mex*
+slprj/
+octave-workspace
+*.autosave
+* .wav
