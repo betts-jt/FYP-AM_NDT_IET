@@ -2,6 +2,8 @@ clear
 clc
 close all
 
+tol = 100; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
+
 % Check if the user is ready to test the part
 answer = questdlg('Are you ready to test the part?' , 'Test Part Now','Yes', 'No', 'No');
 
@@ -45,6 +47,8 @@ Legend{1} = 'Test part';
 % Plot Expected frequency lines
 for i=1:length(FreqCommonPeaks)
     xline(FreqCommonPeaks(i));
+    xline(FreqCommonPeaks(i)-tol, '--')
+    xline(FreqCommonPeaks(i)+tol, '--')
 end
 Legend{2} = 'Expected Frequencies';
 
@@ -56,7 +60,7 @@ Legend{3} = 'Error Frequencies';
 legend(Legend);
 
 %  Find peak Frequencies in test part
-minPeakProminence = 50; % The minimum peak provinence for finding peaks
+minPeakProminence = 40; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
 RequiredPeaks = 3; % Set required nuber of peaks
@@ -70,8 +74,6 @@ end
 freqPeaksTest = f1(b); % Frequency of peaks in Test part
 
 plot(freqPeaksTest, a, 'og'); % Plot frequency peaks on graph
-
-tol = 15; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
 
 for i = 1:length(FreqCommonPeaks)
     for k = 1:RequiredPeaks

@@ -5,7 +5,7 @@ function [FreqCommonPeaks] = CommonPeakFinder(freqPeaks1, freqPeaks2)
 %   freqPeaks1 = The frequencies of peaks in part 1
 %   freqPeaks2 = The frequencies of peaks in part 2
 
-tol = 15; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
+tol = 100; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
 
 %Check if the peaks from part 1 are found in part 2
 for i = 1:length(freqPeaks1)
