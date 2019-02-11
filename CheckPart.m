@@ -2,9 +2,33 @@ clear
 clc
 close all
 
-test_part_audio = 'Track3.wav';
-PartExpectedFrequency = 'TestTrackCorrect';
-PartErrorFrequency = 'test1';
+% Check if the user is ready to test the part
+answer = questdlg('Are you ready to test the part?' , 'Test Part Now','Yes', 'No', 'No');
+
+switch answer
+    case 'Yes'
+        
+        % Start a 3 second countdown to part testing
+        disp('Apply impulse to part in...')
+        pause(1)
+        disp('3')
+        pause(1)
+        disp('2')
+        pause(1)
+        disp('1')
+        pause(1)
+        % End checkpart function
+    case 'No'
+        disp('Please run the function again to test a part')
+        return
+end
+
+% Run the record audio function
+RecordAudio('TestPart', 1.5)
+
+test_part_audio = 'TestPart.wav';
+PartExpectedFrequency = 'PintGlass';
+PartErrorFrequency = 'PintGlassError';
 
 [X1, f1] = Time_Freq_domain(test_part_audio);
 
@@ -35,7 +59,7 @@ legend(Legend);
 minPeakProminence = 25; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
-RequiredPeaks = 8; % Set required nuber of peaks
+RequiredPeaks = 5; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
@@ -45,7 +69,7 @@ end
 
 freqPeaksTest = f1(b); % Frequency of peaks in Test part
 
-tol = 5; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
+tol = 15; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
 
 for i = 1:length(FreqCommonPeaks)
     for k = 1:RequiredPeaks
