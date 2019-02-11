@@ -46,15 +46,17 @@ Legend{1} = 'Test part';
 
 % Plot Expected frequency lines
 for i=1:length(FreqCommonPeaks)
-    xline(FreqCommonPeaks(i));
-    xline(FreqCommonPeaks(i)-tol, '--')
-    xline(FreqCommonPeaks(i)+tol, '--')
+    xline(FreqCommonPeaks(i)); % Plot the expected peak
+    xline(FreqCommonPeaks(i)-tol, '--') % plot the lower tolerence bound
+    xline(FreqCommonPeaks(i)+tol, '--') % Plot the upper tolerence bound
 end
 Legend{2} = 'Expected Frequencies';
 
 % Plot the error frequency lines
 for i=1:length(FrequencyError)
-    xline(FrequencyError(i), 'r');
+    xline(FrequencyError(i), 'r'); % Plot the error peak
+    xline(FrequencyError(i)-tol, '--r') % plot the lower tolerence bound
+    xline(FrequencyError(i)+tol, '--r') % Plot the upper tolerence bound
 end
 Legend{3} = 'Error Frequencies';
 legend(Legend);
