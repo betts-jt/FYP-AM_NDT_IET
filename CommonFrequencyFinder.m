@@ -22,10 +22,10 @@ semilogx(f2, X2, 'b') % Plot test part sprectrum
 xlim([0 max(f2)]) % Set X limit for graph
 
 %  Plot largest peaks on first part
-minPeakProminence = 25; % The minimum peak provinence for finding peaks
+minPeakProminence = 50; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
-RequiredPeaks = 5; % Set required nuber of peaks
+RequiredPeaks = 3; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
@@ -34,7 +34,7 @@ while NumPeaks > RequiredPeaks
 end
 
 %  Plot largest peaks on test good part
-minPeakProminence = 25; % The minimum peak provinence for finding peaks
+minPeakProminence = 50; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
 while NumPeaks > RequiredPeaks

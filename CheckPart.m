@@ -56,10 +56,10 @@ Legend{3} = 'Error Frequencies';
 legend(Legend);
 
 %  Find peak Frequencies in test part
-minPeakProminence = 25; % The minimum peak provinence for finding peaks
+minPeakProminence = 50; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
-RequiredPeaks = 5; % Set required nuber of peaks
+RequiredPeaks = 3; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
@@ -68,6 +68,8 @@ while NumPeaks > RequiredPeaks
 end
 
 freqPeaksTest = f1(b); % Frequency of peaks in Test part
+
+plot(freqPeaksTest, a, 'og'); % Plot frequency peaks on graph
 
 tol = 15; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
 
