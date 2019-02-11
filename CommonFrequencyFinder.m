@@ -1,7 +1,7 @@
 clear
 clc
 close all
-addpath 'Audio_Clips' 'Data' 'Data/ErrorFreq' 'Data/CommonFreq'
+addpath 'Audio_Clips' 'Data' 'Data/ErrorFreq' 'Data/CommonFreq' 'Figures'
 
 % Setting Audio Tracks
 Part1 = 'PintGlass1.wav';
@@ -25,7 +25,7 @@ xlim([0 max(f2)]) % Set X limit for graph
 minPeakProminence = 50; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
-RequiredPeaks = 3; % Set required nuber of peaks
+RequiredPeaks = 10; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
@@ -53,6 +53,8 @@ xlabel('Frequency, Hz')
 ylabel('Magnitude, dB')
 legend('First Part','Second Part','First Part Peaks','Second Part Peaks')
 
+saveas(gcf,'Figures\Specrogram.fig') % Save the comparrison spectrogram
+
 %Plot Peaks on there own graph
 figure(2)
 hold on
@@ -62,7 +64,6 @@ xlabel('Frequency, Hz')
 ylabel('Magnitude, dB')
 Legend{1} = 'First Part';
 Legend{2} = 'Second Part';
-
 
 freqPeaks1 = f1(b); % Frequency of peaks in first part
 freqPeaks2 = f2(d); % Frequency of peaks in second part
@@ -106,7 +107,7 @@ answer = questdlg('Do you wish to enter error frequencuies','Enter Error Frequen
 figure(2)
 hold on
 switch answer
-    case 'Yes'
+    case 'Yes' 
         MoreError = 1;
         g=1;
         while MoreError == 1
@@ -126,3 +127,4 @@ switch answer
     case 'No'
         disp('No error frequencies have been entered')
 end
+saveas(gcf,'Figures\CommonPeaks.fig')
