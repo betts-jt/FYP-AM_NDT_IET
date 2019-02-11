@@ -4,8 +4,8 @@ close all
 addpath 'Audio_Clips' 'Data' 'Data/ErrorFreq' 'Data/CommonFreq'
 
 % Setting Audio Tracks
-Part1 = 'Track1.wav';
-Part2 = 'Track2.wav';
+Part1 = 'PintGlass1.wav';
+Part2 = 'PintGlass2.wav';
 
 % Run through time to frequcency domain function
 [X1, f1] = Time_Freq_domain(Part1);
