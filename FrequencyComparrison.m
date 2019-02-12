@@ -9,6 +9,10 @@ LoopCount = 0; % Counter for the number of audio clips analysed
 GoodCount = 0; % Counter for the numebr of good parts that have been analysed
 BadCount = 0; % Counter for the numebr of good parts that have been analysed
 
+figure(1)
+hold on
+grid on
+
 while AudioRequired == 1
     LoopCount = LoopCount + 1; % Add one to counter
     
@@ -25,25 +29,12 @@ while AudioRequired == 1
             
             [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain([answer{1}, '.wav']);
             
-            if GoodCount == 1
-                figure(1)
-                hold on
-                grid on
-                semilogx(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
-                
-                % Set X limit for graph
-                xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
-                
-                freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
-                
-            else
-                figure(1)
-                hold on
-                grid on
-                semilogx(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
-                
-                freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
-            end
+            semilogx(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
+            
+            % Set X limit for graph
+            xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
+            
+            freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
             
         case 'Bad Part'
             BadCount = BadCount +1; % Add one to good part counter
@@ -54,28 +45,14 @@ while AudioRequired == 1
             
             [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain([answer{1}, '.wav']);
             
-            if BadCount == 1
-                figure(1)
-                hold on
-                grid on
-                semilogx(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
-                
-                % Set X limit for graph
-                xlim([0 max(fB(:,BadCount))]) % Set X limit for graph
-                
-                freqPeaksBad(:,BadCount) = fB(b,BadCount);
-                
-            else
-                figure(1)
-                hold on
-                grid on
-                semilogx(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
-                
-                freqPeaksBad(:,BadCount) = fB(b,BadCount);
-            end
+            
+            semilogx(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
+            
+            freqPeaksBad(:,BadCount) = fB(b,BadCount);
             
         case 'Finish Input'
             AudioRequired = 0; % End audio input loop
+            
     end
     
 end
