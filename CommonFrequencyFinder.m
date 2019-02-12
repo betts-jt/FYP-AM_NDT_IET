@@ -1,7 +1,8 @@
 clear
 clc
 close all
-addpath 'Audio_Clips' 'Data' 'Data/ErrorFreq' 'Data/CommonFreq' 'Figures'
+
+PathAdd();
 
 % Setting Audio Tracks
 Part1 = 'PintGlass1.wav';
