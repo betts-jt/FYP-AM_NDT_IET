@@ -44,11 +44,11 @@ ylabel('Magnitude, dB')
 Legend{1} = 'First Part';
 Legend{2} = 'Second Part';
 
-freqPeaks1 = f1(b); % Frequency of peaks in first part
-freqPeaks2 = f2(d); % Frequency of peaks in second part
+freqPeaks(:,1) = f1(b); % Frequency of peaks in first part
+freqPeaks(:,2) = f2(d); % Frequency of peaks in second part
 
 % Run Function to find common peak frequencys
-[FreqCommonPeaks] = CommonPeakFinder(freqPeaks1, freqPeaks2);
+[FreqCommonPeaks] = CommonPeakFinder(freqPeaks);
 
 % Plot lines on frequency graph showing the common peaks
 figure(2)
