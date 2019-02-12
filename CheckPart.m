@@ -9,24 +9,13 @@ answer = questdlg('Are you ready to test the part?' , 'Test Part Now','Yes', 'No
 
 switch answer
     case 'Yes'
+        % Run the record audio function
+        RecordAudio('TestPart', 1.5)
         
-        % Start a 3 second countdown to part testing
-        disp('Apply impulse to part in...')
-        pause(1)
-        disp('3')
-        pause(1)
-        disp('2')
-        pause(1)
-        disp('1')
-        pause(1)
-        % End checkpart function
     case 'No'
         disp('Please run the function again to test a part')
         return
 end
-
-% Run the record audio function
-RecordAudio('TestPart', 1.5)
 
 test_part_audio = 'TestPart.wav';
 PartExpectedFrequency = 'PintGlass';
