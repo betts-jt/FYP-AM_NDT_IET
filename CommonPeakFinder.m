@@ -32,7 +32,7 @@ for i = 1:length(FrequencyArray(1,:))
     else
         
         %Check if the peaks from part 1 are found in part 2
-        for i = 1:length(FreqCommonPeaks)
+        for i = 1:length(FreqCommonPeaks(1,:))
             for k = 1:length(FrequencyArray(:,loopcount))
                 Common(k,i) = FrequencyArray(k,loopcount)-FreqCommonPeaks(loopcount-1, i);
             end
@@ -41,7 +41,7 @@ for i = 1:length(FrequencyArray(1,:))
         
         %Find the frequency of common peaks
         j=1; % Counter for setting FreqCommonPeaks correctly
-        for i = 1:length(FreqCommonPeaks)
+        for i = 1:length(FreqCommonPeaks(1,:))
             if PeakFound(i) == 1 % If there is a common peak
                 FreqCommonPeaks(loopcount, j) = FreqCommonPeaks(loopcount-1,i); % add the frequency to the common frequency variable.
                 j = j+1;
