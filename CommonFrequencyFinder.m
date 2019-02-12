@@ -6,7 +6,7 @@ PathAdd();
 
 % Setting Audio Tracks
 Part1 = '0_1.wav';
-Part2 = '0_3.wav';
+Part2 = '0_2.wav';
 
 % Run through time to frequcency domain function
 [X1, f1, a, b] = Time_Freq_domain(Part1);
