@@ -14,7 +14,7 @@ X = 20*log10(sqrt(X)*sqrt(2));
 minPeakProminence = 25; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
-RequiredPeaks = 10; % Set required nuber of peaks
+RequiredPeaks = 5; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X, 'MinPeakProminence', minPeakProminence);
