@@ -28,9 +28,9 @@ while AudioRequired == 1
             definput = {''};
             answer = inputdlg(prompt,title,[1 40],definput);
             
-            [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain([answer{1}, '.wav']);
+            [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_Domain([answer{1}, '.wav']);
             
-            semilogx(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
+            plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
             
             % Set X limit for graph
             xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
@@ -44,9 +44,9 @@ while AudioRequired == 1
             definput = {''};
             answer = inputdlg(prompt,title,[1 40],definput);
             
-            [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain([answer{1}, '.wav']);
+            [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_Domain([answer{1}, '.wav']);
             
-            semilogx(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
+            plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
             
             freqPeaksBad(:,BadCount) = fB(b,BadCount);
             
