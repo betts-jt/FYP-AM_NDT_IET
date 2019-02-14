@@ -1,8 +1,8 @@
-function [f , power] = powerFinder(AudioTrack)
+function [f , power] = PowerSpectrum(AudioTrack)
 clear
 
 % get a section of the sound file
-[x, fs] = audioread('PintGlass2.wav');   % load an audio file
+[x, fs] = audioread(AudioTrack);   % load an audio file
 x = x(:, 1);                        % get the first channel
 N = length(x);                      % signal length
 y = fft(x);
