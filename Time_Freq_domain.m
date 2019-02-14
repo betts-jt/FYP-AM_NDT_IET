@@ -16,7 +16,7 @@ plot(f,abs(y))
 %}
 
 %  Plot largest peaks on first part
-minPeakHeight = .5; % The minimum height for finding peaks
+minPeakHeight = 1.5; % The minimum height for finding peaks
 
 [a, b, ~, PeakProm] = findpeaks(power, 'MinPeakHeight', minPeakHeight);
 
