@@ -1,16 +1,16 @@
 function [] = PowerSpectrum(AudioTrack)
 % This is a function to plot the poer spectrum for a give audio track.
 
-% get a section of the sound file
-[x, fs] = audioread(AudioTrack);   % load an audio file
-x = x(:, 1); % get the first channel
-N = length(x); % signal length
-y = fft(x); % Perform a fast fouier transform
+[power , f1, a, b] = Time_Freq_Domain(AudioTrack);
 
-f = (0:N-1)*(fs/N);     % frequency range
-power = abs(y).^2/N;    % power of the DFT
+figure(1)
+hold on
 
-plot(f, power)
+plot(f1, power)
 xlabel('Frequency')
 ylabel('Power')
+
+%Plot peaks on spectrum graphs
+plot(f1(b), a, 'og'); % Peaks of know good part
+
 end
