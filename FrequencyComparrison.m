@@ -1,8 +1,11 @@
 clear
 clc
 close all
+PathAdd()
 
 % This script allows for the easy comparrison of part freqency graphs.
+
+tol = 100; % tolerence of difference in peak value to be concidered the same
 
 AudioRequired = 1; % Set variable to check if the user wishes to enter audio
 GoodCount = 0; % Counter for the numebr of good parts that have been analysed
@@ -52,40 +55,45 @@ while AudioRequired == 1
     end
 end
 
-GoodPeaks = CommonPeakFinder(freqPeaksGood); % Find the good part peaks
-BadPeaks = CommonPeakFinder(freqPeaksBad); % Find the bad part peaks
-
-% Check if any of the good part peaks are on the bad peak list
-tol = 100; % tolerence of difference in peak value to be concidered the same
-
-for i = 1: length(GoodPeaks)
-    counter = 0;
-   for k = 1:length(BadPeaks)
-       counter = counter+1;
-       difference = abs(BadPeaks(counter)-GoodPeaks(i)); % Calculate the difference between the badPeaks and GoodPeaks value
-       if difference < tol % If the value if lower than the tol value
-           BadPeaks(counter) = []; % remove the bad peak the is the same as the good peak
-           counter = counter - 1;
-       elseif BadPeaks(counter) == 0 % If the value of badpeaks is zero
-           BadPeaks(counter) = []; % remove the bad peak the is the same as the good peak
-           counter = counter - 1;
-       end
-   end
+if GoodCount >= 1 % Good parts have been plotted
+    GoodPeaks = CommonPeakFinder(freqPeaksGood); % Find the good part peaks
+    
+    % Plot the peak lines on the graph
+    % Good part peak lines
+    for i = 1:length(GoodPeaks)
+        xline(GoodPeaks(i), 'k') % Plot the peak value line
+        xline(GoodPeaks(i)-tol, '--k') % Plot the lower tolerence peak line
+        xline(GoodPeaks(i)+tol, '--k') % Plot the lower tolerence peak line
+    end
 end
 
-
-% Plot the peak lines on the graph
-% Good part peak lines
-for i = 1:length(GoodPeaks)
-    xline(GoodPeaks(i), 'k') % Plot the peak value line
-    xline(GoodPeaks(i)-tol, '--k') % Plot the lower tolerence peak line
-    xline(GoodPeaks(i)+tol, '--k') % Plot the lower tolerence peak line
+if BadCount >= 1 % Good parts have been plotted
+    
+    BadPeaks = CommonPeakFinder(freqPeaksBad); % Find the bad part peaks
+    
+    % Check if any of the good part peaks are on the bad peak list
+    if GoodCount >=1
+        for i = 1: length(GoodPeaks)
+            counter = 0;
+            for k = 1:length(BadPeaks)
+                counter = counter+1;
+                difference = abs(BadPeaks(counter)-GoodPeaks(i)); % Calculate the difference between the badPeaks and GoodPeaks value
+                if difference < tol % If the value if lower than the tol value
+                    BadPeaks(counter) = []; % remove the bad peak the is the same as the good peak
+                    counter = counter - 1;
+                elseif BadPeaks(counter) == 0 % If the value of badpeaks is zero
+                    BadPeaks(counter) = []; % remove the bad peak the is the same as the good peak
+                    counter = counter - 1;
+                end
+            end
+        end
+    end
+    
+    % Bad part peak lines
+    for i = 1:length(BadPeaks)
+        xline(BadPeaks(i), 'r') % Plot the peak value line
+        xline(BadPeaks(i)-tol, '--r') % Plot the lower tolerence peak line
+        xline(BadPeaks(i)+tol, '--r') % Plot the lower tolerence peak line
+    end
 end
-% Bad part peak lines
-for i = 1:length(BadPeaks)
-    xline(BadPeaks(i), 'r') % Plot the peak value line
-    xline(BadPeaks(i)-tol, '--r') % Plot the lower tolerence peak line
-    xline(BadPeaks(i)+tol, '--r') % Plot the lower tolerence peak line
-end 
-    
-    
+
