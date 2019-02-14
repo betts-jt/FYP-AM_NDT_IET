@@ -2,9 +2,24 @@ clear
 clc
 close all
 
-test_part_audio = 'Track3.wav';
-PartExpectedFrequency = 'TestTrackCorrect';
-PartErrorFrequency = 'test1';
+tol = 100; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
+
+% Check if the user is ready to test the part
+answer = questdlg('Are you ready to test the part?' , 'Test Part Now','Yes', 'No', 'No');
+
+switch answer
+    case 'Yes'
+        % Run the record audio function
+        RecordAudio('TestPart', 1.5)
+        
+    case 'No'
+        disp('Please run the function again to test a part')
+        return
+end
+
+test_part_audio = 'TestPart.wav';
+PartExpectedFrequency = 'PintGlass';
+PartErrorFrequency = 'PintGlassError';
 
 [X1, f1] = Time_Freq_domain(test_part_audio);
 
@@ -20,22 +35,28 @@ Legend{1} = 'Test part';
 
 % Plot Expected frequency lines
 for i=1:length(FreqCommonPeaks)
-    xline(FreqCommonPeaks(i));
+    xline(FreqCommonPeaks(i)); % Plot the expected peak
+    xline(FreqCommonPeaks(i)-tol, '--') % plot the lower tolerence bound
+    xline(FreqCommonPeaks(i)+tol, '--') % Plot the upper tolerence bound
 end
 Legend{2} = 'Expected Frequencies';
 
 % Plot the error frequency lines
 for i=1:length(FrequencyError)
-    xline(FrequencyError(i), 'r');
+    xline(FrequencyError(i), 'r'); % Plot the error peak
+    xline(FrequencyError(i)-tol, '--r') % plot the lower tolerence bound
+    xline(FrequencyError(i)+tol, '--r') % Plot the upper tolerence bound
 end
 Legend{3} = 'Error Frequencies';
 legend(Legend);
 
+saveas(gcf,'Figures\TestPart.fig') % Save the figure
+
 %  Find peak Frequencies in test part
-minPeakProminence = 25; % The minimum peak provinence for finding peaks
+minPeakProminence = 50; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
-RequiredPeaks = 8; % Set required nuber of peaks
+RequiredPeaks = 10; % Set required nuber of peaks
 
 while NumPeaks > RequiredPeaks
     [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
@@ -45,10 +66,10 @@ end
 
 freqPeaksTest = f1(b); % Frequency of peaks in Test part
 
-tol = 5; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
+plot(freqPeaksTest, a, 'og'); % Plot frequency peaks on graph
 
 for i = 1:length(FreqCommonPeaks)
-    for k = 1:RequiredPeaks
+    for k = 1:NumPeaks
         Common(k,i) = freqPeaksTest(k)-FreqCommonPeaks(i);
     end
     PeakFound(i) = any(abs(Common(:,i))<tol);
