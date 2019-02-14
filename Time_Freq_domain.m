@@ -10,10 +10,9 @@ power = abs(y).^2/N;    % power of the DFT
 
 
 %  Plot largest peaks on first part
-minPeakProminence = 5; % The minimum peak provinence for finding peaks
-NumPeaks = 100; % Reset the value of number of peaks
+minPeakHeight = 3; % The minimum height for finding peaks
 
-[a, b, ~, PeakProm] = findpeaks(power, 'MinPeakHeight', minPeakProminence);
+[a, b, ~, PeakProm] = findpeaks(power, 'MinPeakHeight', minPeakHeight);
 
 data(:,1) = a; % Set column one to the peak magnitude values
 data(:,2) =  b; % Set column one to the peak frequency values
