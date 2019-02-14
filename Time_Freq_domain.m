@@ -2,15 +2,21 @@ function [power , f, a, b] = Time_Freq_Domain(AudioTrack)
 
 % get a section of the sound file
 [x, fs] = audioread(AudioTrack);   % load an audio file
-x = x(:, 1);                        % get the first channel
-N = length(x);                      % signal length
+x = x(:, 1); % get the first channel
+N = length(x); % signal length
 y = fft(x);
 f = (0:N-1)*(fs/N);     % frequency range
 power = abs(y).^2/N;    % power of the DFT
 
+% plot the direct result of the FFT
+%{
+figure(2)
+hold on
+plot(f,abs(y))
+%}
 
 %  Plot largest peaks on first part
-minPeakHeight = 3; % The minimum height for finding peaks
+minPeakHeight = .5; % The minimum height for finding peaks
 
 [a, b, ~, PeakProm] = findpeaks(power, 'MinPeakHeight', minPeakHeight);
 
