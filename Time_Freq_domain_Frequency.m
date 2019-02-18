@@ -1,4 +1,4 @@
-function [X, f, a, b] = Time_Freq_domain(AudioTrack)
+function [X, f, a, b] = Time_Freq_domain_Frequency(AudioTrack)
 % get a section of the sound file
 [x, fs] = audioread(AudioTrack);   % load an audio file
 x = x(:, 1);                        % get the first channel

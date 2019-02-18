@@ -1,4 +1,4 @@
-function [power , f, a, b] = Time_Freq_Domain(AudioTrack)
+function [power , f, a, b] = Time_Freq_domain_Power(AudioTrack)
 
 % get a section of the sound file
 [x, fs] = audioread(AudioTrack);   % load an audio file
