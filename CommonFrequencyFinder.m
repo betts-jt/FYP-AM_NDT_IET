@@ -9,8 +9,8 @@ Part1 = '0_1.wav';
 Part2 = '0_2.wav';
 
 % Run through time to frequcency domain function
-[X1, f1, a, b] = Time_Freq_domain(Part1);
-[X2, f2, c ,d] = Time_Freq_domain(Part2);
+[X1, f1, a, b] = Time_Freq_domain_Power(Part1);
+[X2, f2, c ,d] = Time_Freq_domain_Power(Part2);
 
 % plot the signal spectrum
 figure(1)
