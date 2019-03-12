@@ -28,7 +28,7 @@ while AudioRequired == 1
             definput = {''};
             answer = inputdlg(prompt,title,[1 40],definput);
             
-            [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_Domain([answer{1}, '.wav']);
+            [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Power([answer{1}, '.wav']);
             
             plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
             
@@ -44,7 +44,7 @@ while AudioRequired == 1
             definput = {''};
             answer = inputdlg(prompt,title,[1 40],definput);
             
-            [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_Domain([answer{1}, '.wav']);
+            [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain_Power([answer{1}, '.wav']);
             
             plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
             
