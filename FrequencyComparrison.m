@@ -31,7 +31,7 @@ while AudioRequired == 1
             [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Power([answer{1}, '.wav']);
             
             plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
-            
+            plot(fG(b), a, 'xg'); % plot good peak points
             % Set X limit for graph
             xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
             
@@ -47,7 +47,7 @@ while AudioRequired == 1
             [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain_Power([answer{1}, '.wav']);
             
             plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
-            
+            plot(fB(b), a, 'xk'); % plot bad peak points
             freqPeaksBad(:,BadCount) = fB(b,BadCount);
             
         case 'Finish Input'
