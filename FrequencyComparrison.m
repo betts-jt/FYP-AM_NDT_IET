@@ -1,3 +1,6 @@
+% Need to make the single entry good part plot for power and both the bad
+% parts. Can copy the multi entry good part code
+
 clear
 clc
 close all
@@ -34,26 +37,46 @@ while AudioRequired == 1
                 if length(FileList) == 1 % if only one file was selected
                     [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Frequency(FileList);
                     
+                    figure(1)
+                    hold on
                     plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
                     plot(fG(b), a, 'xg'); % plot good peak points
                     % Set X limit for graph
                     xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
                     
-                    freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
+                    freqPeaksGoodF(:,GoodCount) = fG(b,GoodCount);
+                    
+                    figure(2)
+                    hold on
                     
                     GoodCount = GoodCount + 1;
                     
                 else % If multiple files are selected
                     
                     for k = 1:length(file)
-                        [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Frequency(FileList(k));
+                        [XGF(:,GoodCount), fGF(:,GoodCount), aF, bF] = Time_Freq_domain_Frequency(FileList(k));
                         
-                        plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
-                        plot(fG(b), a, 'xg'); % plot good peak points
+                        [XGP(:,GoodCount), fGP(:,GoodCount), aP, bP] = Time_Freq_domain_Power(FileList(k));
+                        
+                        % Frequency plot
+                        figure(1)
+                        hold on
+                        plot(fGF(:,GoodCount), XGF(:,GoodCount), 'b') % Plot known good part sprectrum
+                        plot(fGF(bF), aF, 'xg'); % plot good peak points
                         % Set X limit for graph
-                        xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
+                        xlim([0 max(fGF(:,GoodCount))]) % Set X limit for graph
                         
-                        freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
+                        freqPeaksGoodF(:,GoodCount) = fGF(bF,GoodCount);
+                        
+                        % Power Plot
+                        figure(2)
+                        hold on
+                        plot(fGP(:,GoodCount), XGP(:,GoodCount), 'b') % Plot known good part sprectrum
+                        plot(fGP(bP), aP, 'xg'); % plot good peak points
+                        % Set X limit for graph
+                        xlim([0 max(fGP(:,GoodCount))]) % Set X limit for graph
+                        
+                        freqPeaksGoodP(:,GoodCount) = fGP(bP,GoodCount);
                         
                         GoodCount = GoodCount + 1; % Increase the good counter for each spectrum plotted
                     end
@@ -107,8 +130,12 @@ while AudioRequired == 1
     end
 end
 
+% Revert back to figure 1. Need to change when edit code later.
+figure(1)
+hold on
+
 if GoodCount > 1 % Good parts have been plotted
-    GoodPeaks = CommonPeakFinder(freqPeaksGood); % Find the good part peaks
+    GoodPeaks = CommonPeakFinder(freqPeaksGoodF); % Find the good part peaks
     
     % Plot the peak lines on the graph
     % Good part peak lines
