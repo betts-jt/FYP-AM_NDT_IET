@@ -23,32 +23,76 @@ while AudioRequired == 1
     switch answer
         case 'Good Part'
             GoodCount = GoodCount +1; % Add one to good part counter
-            prompt = {'Enter good part audio'};
-            title = 'Audio File';
-            definput = {''};
-            answer = inputdlg(prompt,title,[1 40],definput);
+            % Open file select window
+            [file,path] = uigetfile('*wav', 'Select an audio file', 'MultiSelect', 'on');
             
-            [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Frequency([answer{1}, '.wav']);
-            
-            plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
-            plot(fG(b), a, 'xg'); % plot good peak points
-            % Set X limit for graph
-            xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
-            
-            freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
+            if isequal(file,0) % User canceled file selection
+                disp('User selected Cancel');
+            else
+                FileList = fullfile(path,file);
+                FileList = string(FileList); % convert to string array
+                
+                if length(FileList) == 1 % if only one file was selected
+                    [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Frequency(FileList);
+                    
+                    plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
+                    plot(fG(b), a, 'xg'); % plot good peak points
+                    % Set X limit for graph
+                    xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
+                    
+                    freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
+                    
+                else % If multiple files are selected
+                    
+                    for k = 1:length(file)
+                        [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Frequency(FileList(k));
+                        
+                        plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
+                        plot(fG(b), a, 'xg'); % plot good peak points
+                        % Set X limit for graph
+                        xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
+                        
+                        freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
+                    end
+                end
+            end
             
         case 'Bad Part'
             BadCount = BadCount +1; % Add one to good part counter
-            prompt = {'Enter bad part audio'};
-            title = 'Audio File';
-            definput = {''};
-            answer = inputdlg(prompt,title,[1 40],definput);
+            % Open file select window
+            [file,path] = uigetfile('*wav', 'Select an audio file', 'MultiSelect', 'on');
             
-            [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain_Frequency([answer{1}, '.wav']);
+            if isequal(file,0) % User canceled file selection
+                disp('User selected Cancel');
+            else
+                FileList = fullfile(path,file);
+                
+                FileList = fullfile(path,file);
+                FileList = string(FileList); % convert to string array
+                
+                if length(FileList) == 1 % if only one file was selected
+                    [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain_Frequency(FileList);
+                    
+                    plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
+                    plot(fB(b), a, 'xk'); % plot bad peak points
+                    freqPeaksBad(:,BadCount) = fB(b,BadCount);
+                    % Set X limit for graph
+                    xlim([0 max(fB(:,BadCount))]) % Set X limit for graph
+                    
+                else % If multiple files are selected
+                    
+                    for k = 1:length(file)
+                        [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain_Frequency(FileList(k));
+                        
+                        plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
+                        plot(fB(b), a, 'xk'); % plot bad peak points
+                        freqPeaksBad(:,BadCount) = fB(b,BadCount);
+                        % Set X limit for graph
+                        xlim([0 max(fB(:,BadCount))]) % Set X limit for graph
+                    end
+                end
+            end
             
-            plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
-            plot(fB(b), a, 'xk'); % plot bad peak points
-            freqPeaksBad(:,BadCount) = fB(b,BadCount);
             
         case 'Finish Input'
             AudioRequired = 0; % End audio input loop
