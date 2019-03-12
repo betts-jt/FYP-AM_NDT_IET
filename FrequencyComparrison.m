@@ -8,8 +8,8 @@ PathAdd()
 tol = 100; % tolerence of difference in peak value to be concidered the same
 
 AudioRequired = 1; % Set variable to check if the user wishes to enter audio
-GoodCount = 0; % Counter for the numebr of good parts that have been analysed
-BadCount = 0; % Counter for the numebr of good parts that have been analysed
+GoodCount = 1; % Counter for the numebr of good parts that have been analysed
+BadCount = 1; % Counter for the numebr of good parts that have been analysed
 
 figure(1)
 hold on
@@ -22,9 +22,8 @@ while AudioRequired == 1
     
     switch answer
         case 'Good Part'
-            GoodCount = GoodCount +1; % Add one to good part counter
             % Open file select window
-            [file,path] = uigetfile('*wav', 'Select an audio file', 'MultiSelect', 'on');
+            [file,path] = uigetfile('*.wav', 'Select an audio file', 'MultiSelect', 'on');
             
             if isequal(file,0) % User canceled file selection
                 disp('User selected Cancel');
@@ -42,6 +41,8 @@ while AudioRequired == 1
                     
                     freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
                     
+                    GoodCount = GoodCount + 1;
+                    
                 else % If multiple files are selected
                     
                     for k = 1:length(file)
@@ -53,14 +54,16 @@ while AudioRequired == 1
                         xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
                         
                         freqPeaksGood(:,GoodCount) = fG(b,GoodCount);
+                        
+                        GoodCount = GoodCount + 1; % Increase the good counter for each spectrum plotted
                     end
                 end
             end
             
         case 'Bad Part'
-            BadCount = BadCount +1; % Add one to good part counter
+            
             % Open file select window
-            [file,path] = uigetfile('*wav', 'Select an audio file', 'MultiSelect', 'on');
+            [file,path] = uigetfile('*.wav', 'Select an audio file', 'MultiSelect', 'on');
             
             if isequal(file,0) % User canceled file selection
                 disp('User selected Cancel');
@@ -79,6 +82,8 @@ while AudioRequired == 1
                     % Set X limit for graph
                     xlim([0 max(fB(:,BadCount))]) % Set X limit for graph
                     
+                    BadCount = BadCount+1;
+                    
                 else % If multiple files are selected
                     
                     for k = 1:length(file)
@@ -89,6 +94,9 @@ while AudioRequired == 1
                         freqPeaksBad(:,BadCount) = fB(b,BadCount);
                         % Set X limit for graph
                         xlim([0 max(fB(:,BadCount))]) % Set X limit for graph
+                        
+                        BadCount = BadCount + 1; % Increase the bad counter for each spectrum plotted
+                        
                     end
                 end
             end
@@ -99,7 +107,7 @@ while AudioRequired == 1
     end
 end
 
-if GoodCount >= 1 % Good parts have been plotted
+if GoodCount > 1 % Good parts have been plotted
     GoodPeaks = CommonPeakFinder(freqPeaksGood); % Find the good part peaks
     
     % Plot the peak lines on the graph
@@ -111,12 +119,12 @@ if GoodCount >= 1 % Good parts have been plotted
     end
 end
 
-if BadCount >= 1 % Good parts have been plotted
+if BadCount > 1 % Good parts have been plotted
     
     BadPeaks = CommonPeakFinder(freqPeaksBad); % Find the bad part peaks
     
     % Check if any of the good part peaks are on the bad peak list
-    if GoodCount >=1
+    if GoodCount >1
         for i = 1: length(GoodPeaks)
             counter = 0;
             for k = 1:length(BadPeaks)
