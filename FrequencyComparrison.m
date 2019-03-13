@@ -164,7 +164,7 @@ while AudioRequired == 1
             AudioRequired = 0; % End audio input loop
     end
 end
-
+%{
 % Revert back to figure 1 to plot the common frequencies
 figure(1)
 hold on
@@ -210,7 +210,7 @@ if BadCount > 1 % Good parts have been plotted
         xline(BadPeaks(i)+tol, '--r') % Plot the lower tolerence peak line
     end
 end
-
+%}
 % Change to figure 2 to plot any nessusary lines at a later date. Suggest
 % lines to show height of power.
 figure(2)
