@@ -1,6 +1,3 @@
-% Need to make the single entry good part plot for power and both the bad
-% parts. Can copy the multi entry good part code
-
 clear
 clc
 close all
@@ -35,19 +32,27 @@ while AudioRequired == 1
                 FileList = string(FileList); % convert to string array
                 
                 if length(FileList) == 1 % if only one file was selected
-                    [XG(:,GoodCount), fG(:,GoodCount), a, b] = Time_Freq_domain_Frequency(FileList);
+                    [XGF(:,GoodCount), fGF(:,GoodCount), aF, bF] = Time_Freq_domain_Frequency(FileList);
+                    
+                    [XGP(:,GoodCount), fGP(:,GoodCount), aP, bP] = Time_Freq_domain_Power(FileList);
                     
                     figure(1)
                     hold on
-                    plot(fG(:,GoodCount), XG(:,GoodCount), 'b') % Plot known good part sprectrum
-                    plot(fG(b), a, 'xg'); % plot good peak points
+                    plot(fGF(:,GoodCount), XGF(:,GoodCount), 'b') % Plot known good part sprectrum
+                    plot(fGF(bF), aF, 'xg'); % plot good peak points
                     % Set X limit for graph
-                    xlim([0 max(fG(:,GoodCount))]) % Set X limit for graph
+                    xlim([0 max(fGF(:,GoodCount))]) % Set X limit for graph
                     
-                    freqPeaksGoodF(:,GoodCount) = fG(b,GoodCount);
+                    freqPeaksGoodF(:,GoodCount) = fGF(bF,GoodCount);
                     
                     figure(2)
                     hold on
+                    plot(fGP(:,GoodCount), XGP(:,GoodCount), 'b') % Plot known good part sprectrum
+                    plot(fGP(bP), aP, 'xg'); % plot good peak points
+                    % Set X limit for graph
+                    xlim([0 max(fGP(:,GoodCount))]) % Set X limit for graph
+                    
+                    freqPeaksGoodP(:,GoodCount) = fGP(bP,GoodCount);
                     
                     GoodCount = GoodCount + 1;
                     
@@ -97,26 +102,56 @@ while AudioRequired == 1
                 FileList = string(FileList); % convert to string array
                 
                 if length(FileList) == 1 % if only one file was selected
-                    [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain_Frequency(FileList);
+                    [XBF(:,BadCount), fBF(:,BadCount), aF, bF] = Time_Freq_domain_Frequency(FileList);
                     
-                    plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
-                    plot(fB(b), a, 'xk'); % plot bad peak points
-                    freqPeaksBad(:,BadCount) = fB(b,BadCount);
+                    [XBP(:,BadCount), fBP(:,BadCount), aP, bP] = Time_Freq_domain_Power(FileList);
+                    
+                    figure(1)
+                    hold on
+                    plot(fBF(:,BadCount), XBF(:,BadCount), 'r') % Plot known good part sprectrum
+                    plot(fBF(bF), aF, 'xk'); % plot good peak points
                     % Set X limit for graph
-                    xlim([0 max(fB(:,BadCount))]) % Set X limit for graph
+                    xlim([0 max(fBF(:,BadCount))]) % Set X limit for graph
+                    
+                    freqPeaksBadF(:,BadCount) = fBF(bF,BadCount);
+                    
+                    figure(2)
+                    hold on
+                    plot(fBP(:,BadCount), XBP(:,BadCount), 'r') % Plot known good part sprectrum
+                    plot(fBP(bP), aP, 'xk'); % plot good peak points
+                    % Set X limit for graph
+                    xlim([0 max(fBP(:,BadCount))]) % Set X limit for graph
+                    
+                    freqPeaksBadP(:,BadCount) = fBP(bP,BadCount);
                     
                     BadCount = BadCount+1;
                     
                 else % If multiple files are selected
                     
                     for k = 1:length(file)
-                        [XB(:,BadCount), fB(:,BadCount), a, b] = Time_Freq_domain_Frequency(FileList(k));
+                        [XBF(:,BadCount), fBF(:,BadCount), aF, bF] = Time_Freq_domain_Frequency(FileList(k));
                         
-                        plot(fB(:,BadCount), XB(:,BadCount), 'r') % Plot known good part sprectrum
-                        plot(fB(b), a, 'xk'); % plot bad peak points
-                        freqPeaksBad(:,BadCount) = fB(b,BadCount);
+                        [XBP(:,BadCount), fBP(:,BadCount), aP, bP] = Time_Freq_domain_Power(FileList(k));
+                        
+                        % Frequency plot
+                        figure(1)
+                        hold on
+                        plot(fBF(:,BadCount), XBF(:,BadCount), 'r') % Plot known good part sprectrum
+                        plot(fBF(bF), aF, 'xk'); % plot good peak points
                         % Set X limit for graph
-                        xlim([0 max(fB(:,BadCount))]) % Set X limit for graph
+                        xlim([0 max(fBF(:,BadCount))]) % Set X limit for graph
+                        
+                        freqPeaksBadF(:,BadCount) = fBF(bF,BadCount);
+                        
+                        % Power Plot
+                        figure(2)
+                        hold on
+                        plot(fBP(:,BadCount), XBP(:,BadCount), 'r') % Plot known good part sprectrum
+                        plot(fBP(bP), aP, 'xk'); % plot good peak points
+                        % Set X limit for graph
+                        xlim([0 max(fBP(:,BadCount))]) % Set X limit for graph
+                        
+                        freqPeaksBadP(:,BadCount) = fBP(bP,BadCount);
                         
                         BadCount = BadCount + 1; % Increase the bad counter for each spectrum plotted
                         
@@ -148,7 +183,7 @@ end
 
 if BadCount > 1 % Good parts have been plotted
     
-    BadPeaks = CommonPeakFinder(freqPeaksBad); % Find the bad part peaks
+    BadPeaks = CommonPeakFinder(freqPeaksBadF); % Find the bad part peaks
     
     % Check if any of the good part peaks are on the bad peak list
     if GoodCount >1
