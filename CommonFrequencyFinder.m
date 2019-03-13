@@ -9,15 +9,15 @@ Part1 = '0_1.wav';
 Part2 = '0_2.wav';
 
 % Run through time to frequcency domain function
-[X1, f1, a, b] = Time_Freq_domain(Part1);
-[X2, f2, c ,d] = Time_Freq_domain(Part2);
+[X1, f1, a, b] = Time_Freq_domain_Power(Part1);
+[X2, f2, c ,d] = Time_Freq_domain_Power(Part2);
 
 % plot the signal spectrum
 figure(1)
 hold on
 grid on
-semilogx(f1, X1, 'r') % Plot known good part sprectrum
-semilogx(f2, X2, 'b') % Plot test part sprectrum
+plot(f1, X1, 'r') % Plot known good part sprectrum
+plot(f2, X2, 'b') % Plot test part sprectrum
 
 % Set X limit for graph
 xlim([0 max(f2)]) % Set X limit for graph
@@ -29,7 +29,8 @@ plot(f2(d), c, 'xk'); % Peaks of test part
 %Add graph titles and legends
 title('Amplitude spectrum of the signal')
 xlabel('Frequency, Hz')
-ylabel('Magnitude, dB')
+
+ylabel('Power')
 legend('First Part','Second Part','First Part Peaks','Second Part Peaks')
 
 saveas(gcf,'Figures\Specrogram.fig') % Save the comparrison spectrogram

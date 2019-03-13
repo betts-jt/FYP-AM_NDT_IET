@@ -1,4 +1,4 @@
-function [X, f, a, b] = Time_Freq_domain(AudioTrack)
+function [X, f, a, b] = Time_Freq_domain_Frequency(AudioTrack)
 % get a section of the sound file
 [x, fs] = audioread(AudioTrack);   % load an audio file
 x = x(:, 1);                        % get the first channel
@@ -14,7 +14,7 @@ X = 20*log10(sqrt(X)*sqrt(2));
 minPeakProminence = 25; % The minimum peak provinence for finding peaks
 NumPeaks = 100; % Reset the value of number of peaks
 
-RequiredPeaks = 10; % Set required nuber of peaks
+RequiredPeaks = 15; % Set required nuber of peaks
 
 [a, b, ~, PeakProm] = findpeaks(X, 'MinPeakProminence', minPeakProminence);
 minPeakProminence = minPeakProminence+1;
