@@ -25,7 +25,7 @@ audiowrite([Path AudioTrackName '.wav'],y,44100);
 
 close all
 
-[x, fs] = audioread([AudioTrackName '.wav']); % read the just saved audiofile
+[x, fs] = audioread([Path AudioTrackName '.wav']); % read the just saved audiofile
 N = length(x); % signal length
 f = (0:N-1)*(fs/N);% Frequency range
 plot(f, x); % Plot the recorded waveform
