@@ -1,4 +1,4 @@
-function [] = RecordAudio(AudioTrackName, Duration)
+function [] = RecordAudio(Path, AudioTrackName, Duration)
 % This function will record the audio from a microphone where
 %   AudioTrackName = The name for the audiofile to be saved as
 %   Duration is the duration of the recording
@@ -21,7 +21,9 @@ recordblocking(recObj, Duration);
 disp('Recording Ended')
 
 y = getaudiodata(recObj);
-audiowrite(['Audio_Clips\' AudioTrackName '.wav'],y,44100);
+audiowrite([Path AudioTrackName '.wav'],y,44100);
+
+close all
 
 [x, fs] = audioread([AudioTrackName '.wav']); % read the just saved audiofile
 N = length(x); % signal length
