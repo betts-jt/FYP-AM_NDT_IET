@@ -1,5 +1,5 @@
-for i = 1:30
-    [x, fs] = audioread(['E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\Training_Data\Bad\0_15_' num2str(i) '.wav']);   % load an audio file
+for i = 1:90
+    [x, fs] = audioread(['E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\Training_Data\Good\0_0_' num2str(i) '.wav']);   % load an audio file
     x = x(:, 1);                        % get the first channel
     RequiredData = length(x);                      % signal length
     t = (0:RequiredData-1)/fs;                     % time vector   
@@ -11,6 +11,6 @@ for i = 1:30
 end
 
 a(1,1:65537) = f;
-a(2:31,:) = X;
-a(:,65538) = 1;
-%csvwrite('Bad15.csv', a')
+a(2:91,:) = X;
+a(:,65538) = 0;
+%csvwrite('Good2.csv', a')
