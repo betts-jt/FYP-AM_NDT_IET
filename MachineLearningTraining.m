@@ -5,8 +5,12 @@ OutData = CSVimport(Path); % Run the funciton to import and format the data
 [x, t] = DataProcessing(OutData); % Format the data for the neural network
 
 %create a nural network layout for the problem
-net = patternnet([512 512]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
+net = patternnet([256 256]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
 view(net) % dispalys the layout of the neural network
+
+%set training parameters
+net.trainParam.epochs = 100; % Maximum numebr of epochs
+net.trainParam.showCommandLine = 0; % Show command line data
 
 % Train the neural network based on the above layout and data
 [net,tr] = train(net,x,t);
