@@ -3,3 +3,4 @@
 *.asv
 *.m~
 TestCSV/InitialCylinder/FullTestCategoryNetwork.mat
+TestCSV/InitialCylinder/GoodBadNetwork.mat
