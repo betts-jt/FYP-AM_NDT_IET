@@ -33,9 +33,7 @@ while AudioRequired == 1
                 
                 if length(FileList) == 1 % if only one file was selected
                     [XGF(:,GoodCount), fGF(:,GoodCount), aF, bF] = Time_Freq_domain_Frequency(FileList);
-                    
-                    [XGP(:,GoodCount), fGP(:,GoodCount), aP, bP] = Time_Freq_domain_Power(FileList);
-                    
+                                       
                     figure(1)
                     hold on
                     plot(fGF(:,GoodCount), XGF(:,GoodCount), 'b') % Plot known good part sprectrum
@@ -44,25 +42,14 @@ while AudioRequired == 1
                     xlim([0 max(fGF(:,GoodCount))]) % Set X limit for graph
                     
                     freqPeaksGoodF(:,GoodCount) = fGF(bF,GoodCount);
-                    
-                    figure(2)
-                    hold on
-                    plot(fGP(:,GoodCount), XGP(:,GoodCount), 'b') % Plot known good part sprectrum
-                    plot(fGP(bP), aP, 'xg'); % plot good peak points
-                    % Set X limit for graph
-                    xlim([0 max(fGP(:,GoodCount))]) % Set X limit for graph
-                    
-                    freqPeaksGoodP(:,GoodCount) = fGP(bP,GoodCount);
-                    
+                                       
                     GoodCount = GoodCount + 1;
                     
                 else % If multiple files are selected
                     
                     for k = 1:length(file)
                         [XGF(:,GoodCount), fGF(:,GoodCount), aF, bF] = Time_Freq_domain_Frequency(FileList(k));
-                        
-                        [XGP(:,GoodCount), fGP(:,GoodCount), aP, bP] = Time_Freq_domain_Power(FileList(k));
-                        
+                                                
                         % Frequency plot
                         figure(1)
                         hold on
@@ -72,17 +59,7 @@ while AudioRequired == 1
                         xlim([0 max(fGF(:,GoodCount))]) % Set X limit for graph
                         
                         freqPeaksGoodF(:,GoodCount) = fGF(bF,GoodCount);
-                        
-                        % Power Plot
-                        figure(2)
-                        hold on
-                        plot(fGP(:,GoodCount), XGP(:,GoodCount), 'b') % Plot known good part sprectrum
-                        plot(fGP(bP), aP, 'xg'); % plot good peak points
-                        % Set X limit for graph
-                        xlim([0 max(fGP(:,GoodCount))]) % Set X limit for graph
-                        
-                        freqPeaksGoodP(:,GoodCount) = fGP(bP,GoodCount);
-                        
+                                                                 
                         GoodCount = GoodCount + 1; % Increase the good counter for each spectrum plotted
                     end
                 end
@@ -103,9 +80,7 @@ while AudioRequired == 1
                 
                 if length(FileList) == 1 % if only one file was selected
                     [XBF(:,BadCount), fBF(:,BadCount), aF, bF] = Time_Freq_domain_Frequency(FileList);
-                    
-                    [XBP(:,BadCount), fBP(:,BadCount), aP, bP] = Time_Freq_domain_Power(FileList);
-                    
+                                   
                     figure(1)
                     hold on
                     plot(fBF(:,BadCount), XBF(:,BadCount), 'r') % Plot known good part sprectrum
@@ -114,25 +89,14 @@ while AudioRequired == 1
                     xlim([0 max(fBF(:,BadCount))]) % Set X limit for graph
                     
                     freqPeaksBadF(:,BadCount) = fBF(bF,BadCount);
-                    
-                    figure(2)
-                    hold on
-                    plot(fBP(:,BadCount), XBP(:,BadCount), 'r') % Plot known good part sprectrum
-                    plot(fBP(bP), aP, 'xk'); % plot good peak points
-                    % Set X limit for graph
-                    xlim([0 max(fBP(:,BadCount))]) % Set X limit for graph
-                    
-                    freqPeaksBadP(:,BadCount) = fBP(bP,BadCount);
-                    
+                                       
                     BadCount = BadCount+1;
                     
                 else % If multiple files are selected
                     
                     for k = 1:length(file)
                         [XBF(:,BadCount), fBF(:,BadCount), aF, bF] = Time_Freq_domain_Frequency(FileList(k));
-                        
-                        [XBP(:,BadCount), fBP(:,BadCount), aP, bP] = Time_Freq_domain_Power(FileList(k));
-                        
+                                                
                         % Frequency plot
                         figure(1)
                         hold on
@@ -142,17 +106,7 @@ while AudioRequired == 1
                         xlim([0 max(fBF(:,BadCount))]) % Set X limit for graph
                         
                         freqPeaksBadF(:,BadCount) = fBF(bF,BadCount);
-                        
-                        % Power Plot
-                        figure(2)
-                        hold on
-                        plot(fBP(:,BadCount), XBP(:,BadCount), 'r') % Plot known good part sprectrum
-                        plot(fBP(bP), aP, 'xk'); % plot good peak points
-                        % Set X limit for graph
-                        xlim([0 max(fBP(:,BadCount))]) % Set X limit for graph
-                        
-                        freqPeaksBadP(:,BadCount) = fBP(bP,BadCount);
-                        
+                                               
                         BadCount = BadCount + 1; % Increase the bad counter for each spectrum plotted
                         
                     end
@@ -211,9 +165,6 @@ if BadCount > 1 % Good parts have been plotted
     end
 end
 %}
-% Change to figure 2 to plot any nessusary lines at a later date. Suggest
-% lines to show height of power.
-figure(2)
-hold on
+
 
 
