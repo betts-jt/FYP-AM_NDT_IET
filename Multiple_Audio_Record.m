@@ -1,9 +1,9 @@
 clc
 close all
 
-BaseName = '0_15_'; % The begining of the file name.
+BaseName = '0_1_'; % The begining of the file name.
 
-Path = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\Training_Data\Bad\';
+Path = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\Training_Data\Initial_Test_Cylinder\Bad\1\';
 
 for i=1:30
     
