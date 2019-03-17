@@ -118,6 +118,9 @@ while AudioRequired == 1
             AudioRequired = 0; % End audio input loop
     end
 end
+figure(1)
+xlabel('Frequency (Hz)')
+ylabel('Power')
 %{
 % Revert back to figure 1 to plot the common frequencies
 figure(1)
