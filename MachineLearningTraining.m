@@ -1,15 +1,17 @@
 %Get input data form csv files
-Path = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\TestCSV\'; % Path that required /csv's live in
+Path = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\TestCSV\InitialCylinder\'; % Path that required /csv's live in
 OutData = CSVimport(Path); % Run the funciton to import and format the data
 
 [x, t] = DataProcessing(OutData); % Format the data for the neural network
 
+clear net tr
+
 %create a nural network layout for the problem
-net = patternnet([100 100]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
+net = patternnet([128 128]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
 view(net) % dispalys the layout of the neural network
 
 %set training parameters
-net.trainParam.epochs = 100; % Maximum numebr of epochs
+net.trainParam.epochs = 200; % Maximum numebr of epochs
 net.trainParam.showCommandLine = 0; % Show command line data
 
 % Train the neural network based on the above layout and data
