@@ -1,8 +1,15 @@
-clear
-clc
-close all
+AudioDuration = 1.5;
 
-tol = 100; % The difference that is allowed within the parts frtequency peaks for them to be concidered the same
+if exist('NetworkLoaded') == 1
+    disp(strcat({'Network '}, string(file), {' loaded in to workspace'}))
+else
+    [file,path] = uigetfile('*.mat', 'Select a network to load');
+    NetName = fullfile(path,file);
+    NetName = string(NetName); % convert to string array
+    load(NetName)
+    disp(strcat({'Network '}, string(file), {' loaded in to Workspace'}))
+    NetworkLoaded = 1; % check if a network is loaded into the Workspace
+end
 
 % Check if the user is ready to test the part
 answer = questdlg('Are you ready to test the part?' , 'Test Part Now','Yes', 'No', 'No');
@@ -10,78 +17,25 @@ answer = questdlg('Are you ready to test the part?' , 'Test Part Now','Yes', 'No
 switch answer
     case 'Yes'
         % Run the record audio function
-        RecordAudio('TestPart', 1.5)
-        
+        RecordAudio('E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\TestAudio\','TestPart', AudioDuration)
     case 'No'
         disp('Please run the function again to test a part')
         return
 end
 
-test_part_audio = 'TestPart.wav';
-PartExpectedFrequency = 'PintGlass';
-PartErrorFrequency = 'PintGlassError';
+%Convert the recorded audio to the frequency domain
+[X, ~, ~, ~] = Time_Freq_domain_Frequency('E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\TestAudio\TestPart.wav');
 
-[X1, f1] = Time_Freq_domain(test_part_audio);
+testY = net(X); % Run the recorded test part against the trained network
+testClasses = testY > 0.5; % 
 
-load([PartExpectedFrequency])
-load([PartErrorFrequency])
-
-% plot the signal spectrum
-figure(1)
-hold on
-grid on
-semilogx(f1, X1, 'b') % Plot known good part sprectrum
-Legend{1} = 'Test part';
-
-% Plot Expected frequency lines
-for i=1:length(FreqCommonPeaks)
-    xline(FreqCommonPeaks(i)); % Plot the expected peak
-    xline(FreqCommonPeaks(i)-tol, '--') % plot the lower tolerence bound
-    xline(FreqCommonPeaks(i)+tol, '--') % Plot the upper tolerence bound
-end
-Legend{2} = 'Expected Frequencies';
-
-% Plot the error frequency lines
-for i=1:length(FrequencyError)
-    xline(FrequencyError(i), 'r'); % Plot the error peak
-    xline(FrequencyError(i)-tol, '--r') % plot the lower tolerence bound
-    xline(FrequencyError(i)+tol, '--r') % Plot the upper tolerence bound
-end
-Legend{3} = 'Error Frequencies';
-legend(Legend);
-
-saveas(gcf,'Figures\TestPart.fig') % Save the figure
-
-%  Find peak Frequencies in test part
-minPeakProminence = 50; % The minimum peak provinence for finding peaks
-NumPeaks = 100; % Reset the value of number of peaks
-
-RequiredPeaks = 10; % Set required nuber of peaks
-
-while NumPeaks > RequiredPeaks
-    [a, b] = findpeaks(X1, 'MinPeakProminence', minPeakProminence);
-    minPeakProminence = minPeakProminence+1;
-    NumPeaks = length(a);
-end
-
-freqPeaksTest = f1(b); % Frequency of peaks in Test part
-
-plot(freqPeaksTest, a, 'og'); % Plot frequency peaks on graph
-
-for i = 1:length(FreqCommonPeaks)
-    for k = 1:NumPeaks
-        Common(k,i) = freqPeaksTest(k)-FreqCommonPeaks(i);
-    end
-    PeakFound(i) = any(abs(Common(:,i))<tol);
-end
-
-% Check if there is a peak at an error value
-
-
-if any(PeakFound ==0)
+if testClasses(1) == 1
     disp('Failed')
-else
+    disp(['Percentage confidence =' num2str(testY(1)) '%'])
+elseif testClasses(2) == 1
     disp('Passed')
+    disp(['Percentage confidence =' num2str(testY(2)) '%'])
 end
 
+clear answer AudioDuration f X NetName path 
 
