@@ -5,4 +5,5 @@ function [] = Pathadd()
 addpath 'Audio_Clips' 'Data' 'Data/ErrorFreq' 'Data/CommonFreq' 'Figures' 'Lib'
 addpath(genpath('Audio_Clips'))
 addpath(genpath('TestCSV'))
+addpath(genpath('TestNetworks'))
 end
