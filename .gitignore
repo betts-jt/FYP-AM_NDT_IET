@@ -1,3 +1,5 @@
 *.asv
 *.m~
 *.wav
+*.mat
+*.csv
