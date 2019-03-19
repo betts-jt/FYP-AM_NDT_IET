@@ -1,5 +1,6 @@
 *.asv
 *.m~
 *.wav
-*.mat
 *.csv
+*.csv
+*.mat
