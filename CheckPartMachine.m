@@ -1,4 +1,4 @@
-AudioDuration = 1.5;
+AudioDuration = 8;
 
 if exist('NetworkLoaded') == 1
     disp(strcat({'Network '}, string(file), {' loaded in to workspace'}))
