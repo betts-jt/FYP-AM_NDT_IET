@@ -1,5 +1,5 @@
 %Get input data form csv files
-Path = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\TestCSV\AM_Piece\'; % Path that required /csv's live in
+Path = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\TestCSV\AM_Piece\Second_Test\'; % Path that required /csv's live in
 OutData = CSVimport(Path); % Run the funciton to import and format the data
 
 [x, t] = DataProcessing(OutData); % Format the data for the neural network
