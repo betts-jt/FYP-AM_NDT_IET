@@ -3,11 +3,11 @@
 
 clear
 
-PreName = '2_3_5_'; % Initial name of the audio file
-InPath = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\Training_Data\AM_4_Cylinders\Site3\Bad\5\Part4\'; % Path where the audio files are located
-NumFiles = 15; % Number of audio files of that type
-OutName = 'Bad_Site3_5_Part4'; % Output ifle name for the csv
-Category = 5; % Category for the data (0 = good, 1 = bad, ect)
+PreName = '2_3_25_'; % Initial name of the audio file
+InPath = 'E:\iCloudDrive\Documents\University\Year 4\FYP\Matlab\FYP-AM_NDT_IET\Audio_Clips\Training_Data\AM_4_Cylinders\Second_Test_Set\Site3\Bad\25\'; % Path where the audio files are located
+NumFiles = 30; % Number of audio files of that type
+OutName = 'Bad_Site3_25'; % Output ifle name for the csv
+Category = 6; % Category for the data (0 = good, 1 = bad, ect)
 
 for i = 1:NumFiles
     [x, fs] = audioread([InPath PreName num2str(i) '.wav']);   % load an audio file
