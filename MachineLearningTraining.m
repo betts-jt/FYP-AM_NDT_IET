@@ -7,7 +7,7 @@ OutData = CSVimport(Path); % Run the funciton to import and format the data
 clear net tr
 
 %create a nural network layout for the problem
-net = patternnet([128 128]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
+net = patternnet([128 128 128]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
 view(net) % dispalys the layout of the neural network
 
 %set training parameters
