@@ -7,7 +7,7 @@ OutData = CSVimport(Path); % Run the funciton to import and format the data
 clear net tr
 
 %create a nural network layout for the problem
-net = patternnet([128 128 128]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
+net = patternnet([10 10 10]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
 view(net) % dispalys the layout of the neural network
 
 %set training parameters
@@ -20,21 +20,7 @@ net.trainParam.showCommandLine = 0; % Show command line data
 %Plot networks performance
 plotperform(tr)
 
-% Get the portion of the data dedicated to testing
-testX = x(:,tr.testInd);
-testT = t(:,tr.testInd);
-
-testY = net(testX);
-testClasses = testY > 0.5;
-
-% Plot test confusion matrix
-plotconfusion(testT,testY)
-
-% Display the suscessful and error percentages
-[c,cm] = confusion(testT,testY);
-
-fprintf('Percentage Correct Classification   : %f%%\n', 100*(1-c));
-fprintf('Percentage Incorrect Classification : %f%%\n', 100*c);
+ 
 
 % Generate a receiver operating characteristic plot
 plotroc(testT,testY)
