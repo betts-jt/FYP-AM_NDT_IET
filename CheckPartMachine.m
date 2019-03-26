@@ -6,8 +6,9 @@ else
     [file,path] = uigetfile('*.mat', 'Select a network to load');
     NetName = fullfile(path,file);
     NetName = string(NetName); % convert to string array
+    
     load(NetName)
-    disp(strcat({'Network '}, string(file), {' loaded in to Workspace'}))
+    disp(strcat({'Network '}, string(file), {' loaded in to Workspace'))
     NetworkLoaded = 1; % check if a network is loaded into the Workspace
 end
 
