@@ -1,4 +1,4 @@
-AudioDuration = 8;
+AudioDuration = 4;
 
 if exist('NetworkLoaded') == 1
     disp(strcat({'Network '}, string(file), {' loaded in to workspace'}))
@@ -30,11 +30,14 @@ end
 testY = net(X); % Run the recorded test part against the trained network
 testClasses = testY > 0.5; % 
 
-if testClasses(1) == 1
-    disp('Failed')
-    disp(['Percentage confidence =' num2str(testY(1)) '%'])
-elseif testClasses(2) == 1
+if testY(1) > 0.95
     disp('Passed')
+    disp(['Percentage confidence =' num2str(testY(1)) '%'])
+elseif testY(1) < 0.95 && testY(1) > 0.75
+    disp('Marginal Pass - Testy Again')
+    disp(['Percentage confidence =' num2str(testY(2)) '%'])
+elseif testY(1) < 0.75
+    disp('Failed')
     disp(['Percentage confidence =' num2str(testY(2)) '%'])
 end
 
