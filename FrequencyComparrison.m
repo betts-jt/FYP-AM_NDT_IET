@@ -1,6 +1,5 @@
 clear
 clc
-close all
 PathAdd()
 
 % This script allows for the easy comparrison of part freqency graphs.
@@ -24,7 +23,6 @@ while AudioRequired == 1
         case 'Good Part'
             % Open file select window
             [file,path] = uigetfile('*.wav', 'Select an audio file', 'MultiSelect', 'on');
-            
             if isequal(file,0) % User canceled file selection
                 disp('User selected Cancel');
             else
@@ -36,8 +34,8 @@ while AudioRequired == 1
                                        
                     figure(1)
                     hold on
-                    plot(fGF(:,GoodCount), XGF(:,GoodCount), 'b') % Plot known good part sprectrum
-                    plot(fGF(bF), aF, 'xg'); % plot good peak points
+                    plot(fGF(:,GoodCount), XGF(:,GoodCount)),fixplot1('%1.8f') % Plot known good part sprectrum
+                    %plot(fGF(bF), aF, 'xg'); % plot good peak points
                     % Set X limit for graph
                     xlim([0 max(fGF(:,GoodCount))]) % Set X limit for graph
                     
@@ -53,8 +51,8 @@ while AudioRequired == 1
                         % Frequency plot
                         figure(1)
                         hold on
-                        plot(fGF(:,GoodCount), XGF(:,GoodCount), 'b') % Plot known good part sprectrum
-                        plot(fGF(bF), aF, 'xg'); % plot good peak points
+                        plot(fGF(:,GoodCount), XGF(:,GoodCount), 'b', 'HandleVisibility','off'),fixplot1('%1.8f') % Plot known good part sprectrum
+                        %plot(fGF(bF), aF, 'xg','HandleVisibility','off'); % plot good peak points
                         % Set X limit for graph
                         xlim([0 max(fGF(:,GoodCount))]) % Set X limit for graph
                         
@@ -83,8 +81,8 @@ while AudioRequired == 1
                                    
                     figure(1)
                     hold on
-                    plot(fBF(:,BadCount), XBF(:,BadCount), 'r') % Plot known good part sprectrum
-                    plot(fBF(bF), aF, 'xk'); % plot good peak points
+                    plot(fBF(:,BadCount), XBF(:,BadCount), '--r') % Plot known good part sprectrum
+                    %plot(fBF(bF), aF, '*k'); % plot good peak points
                     % Set X limit for graph
                     xlim([0 max(fBF(:,BadCount))]) % Set X limit for graph
                     
@@ -100,8 +98,8 @@ while AudioRequired == 1
                         % Frequency plot
                         figure(1)
                         hold on
-                        plot(fBF(:,BadCount), XBF(:,BadCount), 'r') % Plot known good part sprectrum
-                        plot(fBF(bF), aF, 'xk'); % plot good peak points
+                        plot(fBF(:,BadCount), XBF(:,BadCount), '--r','HandleVisibility','off') % Plot known good part sprectrum
+                        %plot(fBF(bF), aF, '*k','HandleVisibility','off'); % plot good peak points
                         % Set X limit for graph
                         xlim([0 max(fBF(:,BadCount))]) % Set X limit for graph
                         
@@ -120,7 +118,8 @@ while AudioRequired == 1
 end
 figure(1)
 xlabel('Frequency (Hz)')
-ylabel('Power')
+ylabel('Amplitude')
+
 %{
 % Revert back to figure 1 to plot the common frequencies
 figure(1)

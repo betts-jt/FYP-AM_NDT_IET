@@ -9,26 +9,25 @@ clear net tr
 
 
 %set training parameters%create a nural network layout for the problem
-net = patternnet([256 256 256]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
+net = patternnet([64 64 64]); % creates a two hidden layer neural network with 1024 hidden neurons in each layer
 view(net) % dispalys the layout of the neural network
 net.trainParam.epochs = 100; % Maximum numebr of epochs
 net.trainParam.showCommandLine = 0; % Show command line data
 
+%%
 % Train the neural network based on the above layout and data
 [net,tr] = train(net,x,t);
 
+
+%%
 %Plot networks performance
 plotperform(tr)
+yTrn = net(x(:,tr.trainInd));
+tTrn = t(:,tr.trainInd);
+yTst = net(x(:,tr.testInd));
+tTst = t(:,tr.testInd);
+yVal = net(x(:,tr.valInd));
+tVal = t(:,tr.valInd);
 
- 
-
-% Generate a receiver operating characteristic plot
-plotroc(testT,testY)
-
-
-%% References
-% [1] T.P. Conrads, et al., "High-resolution serum proteomic features for
-%     ovarian detection", Endocrine-Related Cancer, 11, 2004, pp. 163-178.
-%%
-% [2] E.F. Petricoin, et al., "Use of proteomic patterns in serum to
-%     identify ovarian cancer", Lancet, 359(9306), 2002, pp. 572-577.
+plotconfusion(tTrn, yTrn, 'AM Part Test')
+plotconfusion(tTst, yTst, 'AM Part Test')
